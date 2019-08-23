@@ -67,5 +67,5 @@ def lambda_handler(event, context):
     for i in snapshot_list:
         snapshot_id = i[0]
         snapshot_tags = i[1]
-        snapshot_tags_filtered = ([item for item in snapshot_tags if item['Key'] != 'aws:backup:source-resource'])
-        new_snapshot_id = copy_snapshot(snapshot_id, snapshot_tags_filtered)
+    #   snapshot_tags_filtered = ([item for item in snapshot_tags if item['Key'] != 'aws:backup:source-resource'])
+        new_snapshot_id = copy_snapshot(snapshot_id, snapshot_tags)
