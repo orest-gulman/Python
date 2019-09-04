@@ -19,7 +19,7 @@ delete_on = datetime.today() + timedelta(retention_days)
 delete_on = delete_on.strftime('%Y-%m-%d')
 
 
-# Getting snapshots as per specified filter and only today created
+# Filter snapshots in source region by owner-id and tag
 def get_snapshots_src():
     response = client_src.describe_snapshots(
         Filters=[
@@ -35,10 +35,13 @@ def get_snapshots_src():
     return snapshotsInDay
 
 
-# Filter snapshots by tag: 'delete_On' and value: today
+# Filter snapshots in destination region by owner-id and tag
 def get_snapshots_dst():
     response = client_dst.describe_snapshots(
-        Filters=[{'Name': 'tag:delete_On', 'Values': [date_today]}]
+        Filters=[
+            {'Name': 'owner-id', 'Values': ['00000999999']},
+            {'Name': 'tag:delete_On', 'Values': [date_today]}
+        ]
     )
     return response["Snapshots"]
 
